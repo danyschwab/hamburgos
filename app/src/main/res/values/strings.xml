@@ -17,4 +17,5 @@
     <string name="hamburguer">Hamburguer</string>
     <string name="more">Saber mais</string>
     <string name="add">Adicionar</string>
+    <string name="price">$ %s</string>
 </resources>

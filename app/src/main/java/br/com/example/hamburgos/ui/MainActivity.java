@@ -1,8 +1,11 @@
-package br.com.example.hamburgos;
+package br.com.example.hamburgos.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,13 +17,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import java.util.List;
+
+import br.com.example.hamburgos.R;
+import br.com.example.hamburgos.listener.SnackItemClickListener;
+import br.com.example.hamburgos.model.Snack;
+import br.com.example.hamburgos.request.Presenter;
+import br.com.example.hamburgos.util.Constants;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    @BindView(R.id.list_snacks)
+    RecyclerView recyclerView;
+
+//    @BindView(R.id.progress_bar)
+//    ProgressBar progressBar;
+
+    private SnacksAdapter adapter;
+    private Presenter presenter;
+    private boolean isUpdating;
+
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        unbinder = ButterKnife.bind(this);
+
+        presenter = new Presenter(this);
+        adapter = new SnacksAdapter(this);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -38,6 +69,29 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        adapter.setClickListener(new SnackItemClickListener() {
+            @Override
+            public View.OnClickListener onClick(final Snack snack) {
+                return new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(MainActivity.this, SnackDetailActivity.class);
+                        intent.putExtra(Constants.SNACK, snack);
+                        startActivity(intent);
+                    }
+                };
+            }
+        });
+
+        LinearLayoutManager layoutParams = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutParams);
+
+        recyclerView.setAdapter(adapter);
+
+        presenter.getSnacks();
     }
 
     @Override
@@ -96,4 +150,18 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onDestroy() {
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
+        super.onDestroy();
+    }
+
+    public void setContent(List<Snack> snacks) {
+//        progressBar.setVisibility(View.GONE);
+        adapter.setContent(snacks);
+    }
+
 }
