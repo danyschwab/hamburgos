@@ -4,10 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import br.com.example.hamburgos.model.Ingredient;
 import br.com.example.hamburgos.model.Promotion;
-import br.com.example.hamburgos.model.Snack;
-import br.com.example.hamburgos.ui.MainActivity;
 import br.com.example.hamburgos.ui.PromotionActivity;
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -56,4 +56,21 @@ public class Presenter {
             });
         }
     }
+
+    public void addRequest(final Snack snack) {
+        repository.addRequest(snack, new Callback<List<Ingredient>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Ingredient>> call, @NonNull Response<List<Ingredient>> response) {
+                List<Ingredient> ingredients = response.body();
+                snack.setIngredientList(ingredients);
+                if ( activity != null ){
+                    activity.setRequest(request);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Ingredient>> call, Throwable t) {
+            }
+        });
+    }
 }

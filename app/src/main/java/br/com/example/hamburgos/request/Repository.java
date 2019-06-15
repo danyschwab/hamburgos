@@ -11,6 +11,7 @@ import java.util.Map;
 import br.com.example.hamburgos.BuildConfig;
 import br.com.example.hamburgos.model.Ingredient;
 import br.com.example.hamburgos.model.Promotion;
+import br.com.example.hamburgos.model.Request;
 import br.com.example.hamburgos.model.Snack;
 import br.com.example.hamburgos.util.Constants;
 import br.com.example.hamburgos.util.Utils;
@@ -28,7 +29,7 @@ public class Repository {
     private Context context;
     private Service service;
 
-    public Repository(Context context) {
+    Repository(Context context) {
 
         this.context = context;
 
@@ -69,20 +70,13 @@ public class Repository {
         service = retrofit.create(Service.class);
     }
 
-    private Map<String, String> createParans() {
-        Map<String, String> map = new HashMap<>();
-        map.put(Constants.KEY, BuildConfig.API_KEY);
-//        map.put(Constants.QUERY, query);
 
-        return map;
-    }
-
-    public void listSnacks(Callback<List<Snack>> callback) {
+    void listSnacks(Callback<List<Snack>> callback) {
         Call<List<Snack>> call = service.listSnacks();
         call.enqueue(callback);
     }
 
-    public void getIngredientBySnack(int snackId, Callback<List<Ingredient>> callback) {
+    void getIngredientBySnack(int snackId, Callback<List<Ingredient>> callback) {
         Call<List<Ingredient>> call = service.getIngredientsBySnack(snackId);
         call.enqueue(callback);
     }
@@ -92,8 +86,18 @@ public class Repository {
         call.enqueue(callback);
     }
 
-    public void listPromotions(Callback<List<Promotion>> callback) {
+    void listPromotions(Callback<List<Promotion>> callback) {
         Call<List<Promotion>> call = service.listPromotions();
+        call.enqueue(callback);
+    }
+
+    void listRequests(Callback<List<Request>> callback) {
+        Call<List<Request>> call = service.listRequest();
+        call.enqueue(callback);
+    }
+
+    void addRequest(Snack snack, Callback<List<Request>> callback) {
+        Call<List<Request>> call = service.listRequest();
         call.enqueue(callback);
     }
 

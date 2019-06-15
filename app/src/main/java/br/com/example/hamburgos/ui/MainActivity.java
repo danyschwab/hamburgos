@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.Switch;
 
 import java.util.List;
 
@@ -74,14 +75,17 @@ public class MainActivity extends AppCompatActivity
 
         adapter.setClickListener(new SnackItemClickListener() {
             @Override
-            public View.OnClickListener onClick(final Snack snack) {
+            public View.OnClickListener onClick(final String type, final Snack snack) {
                 return new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        Intent intent = new Intent(MainActivity.this, SnackDetailActivity.class);
-                        intent.putExtra(Constants.SNACK, snack);
-                        startActivity(intent);
+                        if ( Constants.ADD.equals(type)){
+                            presenter.addRequest(snack);
+                        } else if ( Constants.CUSTOM.equals(type)) {
+                            Intent intent = new Intent(MainActivity.this, SnackDetailActivity.class);
+                            intent.putExtra(Constants.SNACK, snack);
+                            startActivity(intent);
+                        }
                     }
                 };
             }
@@ -137,6 +141,9 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_promotions) {
             Intent intent = new Intent(MainActivity.this, PromotionActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_shopper) {
+            Intent intent = new Intent(MainActivity.this, RequestActivity.class);
             startActivity(intent);
         }
 

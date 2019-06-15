@@ -9,9 +9,11 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_promotions">Promoções</string>
+    <string name="menu_shopper">Pedido</string>
     <string name="snack_image">Snack image</string>
     <string name="hamburguer">Hamburguer</string>
     <string name="more">Saber mais</string>
     <string name="add">Adicionar</string>
     <string name="price">$ %f</string>
+    <string name="custom">Custom</string>
 </resources>
