@@ -24,6 +24,7 @@ import java.util.List;
 
 import br.com.example.hamburgos.R;
 import br.com.example.hamburgos.listener.SnackItemClickListener;
+import br.com.example.hamburgos.model.Request;
 import br.com.example.hamburgos.model.Snack;
 import br.com.example.hamburgos.request.Presenter;
 import br.com.example.hamburgos.util.Constants;
@@ -56,14 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -174,5 +168,11 @@ public class MainActivity extends AppCompatActivity
                dialogInterface.dismiss();
             }
         });
+        builder.show();
+    }
+
+    public void setRequest(Request request) {
+        Intent intent = new Intent(MainActivity.this, RequestActivity.class);
+        startActivity(intent);
     }
 }

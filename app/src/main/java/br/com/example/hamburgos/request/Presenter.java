@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.example.hamburgos.model.Ingredient;
+import br.com.example.hamburgos.model.Request;
 import br.com.example.hamburgos.model.Snack;
 import br.com.example.hamburgos.ui.MainActivity;
 import retrofit2.Call;
@@ -33,7 +34,7 @@ public class Presenter {
 
             @Override
             public void onFailure(@NonNull Call<List<Snack>> call, Throwable t) {
-                activity.setError("Error occur!");
+                activity.setError(t.getMessage());
             }
         });
     }
@@ -58,18 +59,17 @@ public class Presenter {
     }
 
     public void addRequest(final Snack snack) {
-        repository.addRequest(snack, new Callback<List<Ingredient>>() {
+        repository.addRequest(snack, new Callback<Request>() {
             @Override
-            public void onResponse(@NonNull Call<List<Ingredient>> call, @NonNull Response<List<Ingredient>> response) {
-                List<Ingredient> ingredients = response.body();
-                snack.setIngredientList(ingredients);
+            public void onResponse(@NonNull Call<Request> call, @NonNull Response<Request> response) {
+                Request request = response.body();
                 if ( activity != null ){
                     activity.setRequest(request);
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Ingredient>> call, Throwable t) {
+            public void onFailure(@NonNull Call<Request> call, Throwable t) {
             }
         });
     }

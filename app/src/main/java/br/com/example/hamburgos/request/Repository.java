@@ -70,6 +70,12 @@ public class Repository {
         service = retrofit.create(Service.class);
     }
 
+    private Map<String, String> createParans() {
+        Map<String, String> map = new HashMap<>();
+//        map.put(Constants.QUERY, query);
+
+        return map;
+    }
 
     void listSnacks(Callback<List<Snack>> callback) {
         Call<List<Snack>> call = service.listSnacks();
@@ -96,8 +102,8 @@ public class Repository {
         call.enqueue(callback);
     }
 
-    void addRequest(Snack snack, Callback<List<Request>> callback) {
-        Call<List<Request>> call = service.listRequest();
+    void addRequest(Snack snack, Callback<Request> callback) {
+        Call<Request> call = service.addRequest(snack.getId(), snack.getExtras());
         call.enqueue(callback);
     }
 

@@ -1,10 +1,13 @@
 package br.com.example.hamburgos.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Snack implements Serializable {
+public class Snack implements Parcelable {
 
     private int id;
     private String image;
@@ -27,11 +30,15 @@ public class Snack implements Serializable {
 
     public float getPrice(){
         float result = 0;
-        for (Ingredient ingredient : ingredientList){
-            result += ingredient.getPrice();
+        if ( ingredientList != null ) {
+            for (Ingredient ingredient : ingredientList) {
+                result += ingredient.getPrice();
+            }
         }
-        for (Ingredient ingredient : extras){
-            result += ingredient.getPrice();
+        if ( extras != null) {
+            for (Ingredient ingredient : extras) {
+                result += ingredient.getPrice();
+            }
         }
         return result;
     }
@@ -42,13 +49,19 @@ public class Snack implements Serializable {
 
     public String getIngredientListString(){
         String result = "";
-        for(Ingredient ingredient: ingredientList){
-            result += ingredient.getName() + ", ";
+        if ( ingredientList != null ) {
+            for (Ingredient ingredient : ingredientList) {
+                result += ingredient.getName() + ", ";
+            }
         }
-        for(Ingredient ingredient: extras){
-            result += ingredient.getName() + ", ";
+        if ( extras != null) {
+            for (Ingredient ingredient : extras) {
+                result += ingredient.getName() + ", ";
+            }
         }
-        result = result.substring(0, result.length()-2);
+        if ( result.length() > 2) {
+            result = result.substring(0, result.length() - 2);
+        }
         return result;
     }
 
@@ -74,5 +87,15 @@ public class Snack implements Serializable {
         snack.image = "https://goo.gl/W9WdaF";
         snack.name =  "X-Bacon";
         return snack;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }
