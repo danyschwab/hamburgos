@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.example.hamburgos.model.Ingredient;
 import br.com.example.hamburgos.model.Snack;
 import br.com.example.hamburgos.ui.MainActivity;
 import retrofit2.Call;
@@ -26,10 +27,8 @@ public class Presenter {
         repository.listSnacks(new Callback<List<Snack>>() {
             @Override
             public void onResponse(@NonNull Call<List<Snack>> call, @NonNull Response<List<Snack>> response) {
-                if (activity != null) {
-                    List<Snack> snacks = response.body();
-                    activity.setContent(snacks);
-                }
+                List<Snack> snacks = response.body();
+                getIngredientsBySnack(snacks);
             }
 
             @Override
@@ -37,5 +36,24 @@ public class Presenter {
                 activity.setError("Error occur!");
             }
         });
+    }
+
+    private void getIngredientsBySnack(final List<Snack> snacks) {
+        for (final Snack snack : snacks){
+            repository.getIngredientBySnack(snack.getId(), new Callback<List<Ingredient>>() {
+                @Override
+                public void onResponse(@NonNull Call<List<Ingredient>> call, @NonNull Response<List<Ingredient>> response) {
+                    List<Ingredient> ingredients = response.body();
+                    snack.setIngredientList(ingredients);
+                    if ( activity != null ){
+                        activity.setContent(snacks);
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<List<Ingredient>> call, Throwable t) {
+                }
+            });
+        }
     }
 }

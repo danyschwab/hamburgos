@@ -26,7 +26,7 @@
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_snack_name"
+            android:id="@+id/text_promotion_name"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,35 +37,14 @@
             card_view:layout_constraintTop_toBottomOf="@id/image_thumbnail" />
 
         <TextView
-            android:id="@+id/text_price"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$ 14.00"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
-            card_view:layout_constraintBottom_toBottomOf="@+id/text_snack_name"
-            card_view:layout_constraintEnd_toEndOf="@+id/image_thumbnail"
-            card_view:layout_constraintTop_toTopOf="@+id/text_snack_name" />
-
-        <TextView
-            android:id="@+id/text_ingredients"
+            android:id="@+id/text_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:text="Pão com gergelim, bacon, hambúrguer de carne e queijo"
             card_view:layout_constraintStart_toStartOf="@+id/image_thumbnail"
-            card_view:layout_constraintTop_toBottomOf="@+id/text_snack_name" />
-
-        <Button
-            android:id="@+id/button_action"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add"
-            card_view:layout_constraintStart_toStartOf="@+id/image_thumbnail"
-            card_view:layout_constraintTop_toBottomOf="@+id/text_ingredients" />
+            card_view:layout_constraintTop_toBottomOf="@+id/text_promotion_name" />
 
     </android.support.constraint.ConstraintLayout>
 

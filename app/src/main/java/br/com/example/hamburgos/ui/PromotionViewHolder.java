@@ -10,20 +10,16 @@ import br.com.example.hamburgos.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SnackViewHolder extends RecyclerView.ViewHolder {
+public class PromotionViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.image_thumbnail)
     ImageView imageThumbnail;
-    @BindView(R.id.text_snack_name)
-    TextView snackName;
-    @BindView(R.id.text_price)
-    TextView price;
-    @BindView(R.id.text_ingredients)
-    TextView ingredients;
-    @BindView(R.id.button_action)
-    Button add;
+    @BindView(R.id.text_promotion_name)
+    TextView promotionName;
+    @BindView(R.id.text_description)
+    TextView description;
 
-    SnackViewHolder(View view) {
+    PromotionViewHolder(View view) {
         super(view);
         ButterKnife.bind(this, view);
     }

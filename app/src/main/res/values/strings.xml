@@ -8,14 +8,10 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="menu_promotions">Promoções</string>
     <string name="snack_image">Snack image</string>
     <string name="hamburguer">Hamburguer</string>
     <string name="more">Saber mais</string>
     <string name="add">Adicionar</string>
-    <string name="price">$ %s</string>
+    <string name="price">$ %f</string>
 </resources>

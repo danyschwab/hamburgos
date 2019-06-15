@@ -41,14 +41,15 @@ public class SnacksAdapter extends RecyclerView.Adapter<SnackViewHolder> {
 
         if (snack != null) {
             holder.snackName.setText(snack.getName());
-//            holder.price.setText(context.getString(R.string.price, snack.getPrice()));
+            holder.price.setText(context.getString(R.string.price, snack.getPrice()));
+            holder.ingredients.setText(snack.getIngredientListString());
             Picasso.with(context)
                     .load(snack.getImage())
                     .resize(50, 50)
                     .centerCrop()
                     .placeholder(R.drawable.hamburguer)
                     .into(holder.imageThumbnail);
-            holder.itemView.setOnClickListener(clickListener.onClick(snack));
+            holder.add.setOnClickListener(clickListener.onClick(snack));
         }
     }
 

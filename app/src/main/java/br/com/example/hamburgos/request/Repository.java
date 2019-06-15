@@ -10,6 +10,7 @@ import java.util.Map;
 
 import br.com.example.hamburgos.BuildConfig;
 import br.com.example.hamburgos.model.Ingredient;
+import br.com.example.hamburgos.model.Promotion;
 import br.com.example.hamburgos.model.Snack;
 import br.com.example.hamburgos.util.Constants;
 import br.com.example.hamburgos.util.Utils;
@@ -81,8 +82,18 @@ public class Repository {
         call.enqueue(callback);
     }
 
+    public void getIngredientBySnack(int snackId, Callback<List<Ingredient>> callback) {
+        Call<List<Ingredient>> call = service.getIngredientsBySnack(snackId);
+        call.enqueue(callback);
+    }
+
     public void listIngridients(Callback<List<Ingredient>> callback) {
         Call<List<Ingredient>> call = service.listIngredients();
+        call.enqueue(callback);
+    }
+
+    public void listPromotions(Callback<List<Promotion>> callback) {
+        Call<List<Promotion>> call = service.listPromotions();
         call.enqueue(callback);
     }
 
