@@ -40,10 +40,10 @@ public class SnacksAdapter extends RecyclerView.Adapter<SnackViewHolder> {
         final Snack snack = data.get(position);
 
         if (snack != null) {
-            holder.snackName.setText(snack.getSnackName());
-            holder.price.setText(context.getString(R.string.price, snack.getPrice()));
+            holder.snackName.setText(snack.getName());
+//            holder.price.setText(context.getString(R.string.price, snack.getPrice()));
             Picasso.with(context)
-                    .load(snack.getPreviewURL())
+                    .load(snack.getImage())
                     .resize(50, 50)
                     .centerCrop()
                     .placeholder(R.drawable.hamburguer)

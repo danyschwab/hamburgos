@@ -5,24 +5,32 @@ import java.util.List;
 
 public class Snack implements Serializable {
 
-    private String previewURL;
-    private String snackName;
-    private String price;
+    private int id;
+    private String image;
+    private String name;
     private List<Ingredient> ingredientList;
 
-    public String getPreviewURL() {
-        return previewURL;
+    public int getId() {
+        return id;
     }
 
-    public String getPrice() {
-        return price;
+    public String getImage() {
+        return image;
     }
 
-    public String getSnackName() {
-        return snackName;
+    public String getName() {
+        return name;
     }
 
     public List<Ingredient> getIngredientList() {
         return ingredientList;
+    }
+
+    public static Snack getSnackExample(){
+        Snack snack = new Snack();
+        snack.id = 1;
+        snack.image = "https://goo.gl/W9WdaF";
+        snack.name =  "X-Bacon";
+        return snack;
     }
 }

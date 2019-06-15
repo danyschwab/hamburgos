@@ -5,10 +5,12 @@ import android.content.Context;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.com.example.hamburgos.BuildConfig;
-import br.com.example.hamburgos.model.Snacks;
+import br.com.example.hamburgos.model.Ingredient;
+import br.com.example.hamburgos.model.Snack;
 import br.com.example.hamburgos.util.Constants;
 import br.com.example.hamburgos.util.Utils;
 import okhttp3.Cache;
@@ -24,7 +26,6 @@ public class Repository {
 
     private Context context;
     private Service service;
-    private Call<Snacks> search;
 
     public Repository(Context context) {
 
@@ -75,11 +76,14 @@ public class Repository {
         return map;
     }
 
-    public void getSnacks(Callback<Snacks> callback) {
-        Map<String, String> options = createParans();
-        search = service.getSnacks(options);
-        search.enqueue(callback);
+    public void listSnacks(Callback<List<Snack>> callback) {
+        Call<List<Snack>> call = service.listSnacks();
+        call.enqueue(callback);
     }
 
+    public void listIngridients(Callback<List<Ingredient>> callback) {
+        Call<List<Ingredient>> call = service.listIngredients();
+        call.enqueue(callback);
+    }
 
 }
