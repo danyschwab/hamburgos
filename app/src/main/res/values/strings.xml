@@ -28,4 +28,6 @@
     <string name="your_way">- do seu jeito</string>
     <string name="label_no">Não</string>
     <string name="confirmation">Confirmar pedido</string>
+    <string name="empty_requests">Nenhum pedido ainda!</string>
+    <string name="empty_promotions">Sem Promoções no momento</string>
 </resources>

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ import butterknife.Unbinder;
 
 public class RequestActivity extends AppCompatActivity {
 
+    @BindView(R.id.text_empty_list)
+    TextView emptyList;
     @BindView(R.id.list_request)
     RecyclerView recyclerView;
 
@@ -55,7 +59,14 @@ public class RequestActivity extends AppCompatActivity {
     }
 
     public void setContent(List<Request> requests) {
-        adapter.setContent(requests);
+        if ( requests == null || requests.isEmpty()){
+            emptyList.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            emptyList.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter.setContent(requests);
+        }
     }
 
     public void setError(String errorMessage) {

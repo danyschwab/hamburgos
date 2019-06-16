@@ -6,6 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -18,6 +20,8 @@ import butterknife.Unbinder;
 
 public class PromotionActivity extends AppCompatActivity {
 
+    @BindView(R.id.text_empty_list)
+    TextView emptyList;
     @BindView(R.id.list_promotion)
     RecyclerView recyclerView;
 
@@ -53,7 +57,14 @@ public class PromotionActivity extends AppCompatActivity {
     }
 
     public void setContent(List<Promotion> promotions) {
-        adapter.setContent(promotions);
+        if ( promotions == null || promotions.isEmpty()){
+            emptyList.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            emptyList.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter.setContent(promotions);
+        }
     }
 
     public void setError(String errorMessage) {
