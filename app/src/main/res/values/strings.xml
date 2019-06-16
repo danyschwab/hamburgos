@@ -16,4 +16,12 @@
     <string name="add">Adicionar</string>
     <string name="price">$ %.2f</string>
     <string name="custom">Custom</string>
+    <string name="done">Concluir</string>
+    <string name="foward"><![CDATA[>]]></string>
+    <string name="back"><![CDATA[<]]></string>
+    <string name="forward"><![CDATA[>]]></string>
+    <string name="one">1</string>
+    <string name="bacon">Bacon</string>
+    <string name="dolar">$ 0.40</string>
+    <string name="quantity">%d</string>
 </resources>

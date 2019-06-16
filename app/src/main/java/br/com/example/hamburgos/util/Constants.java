@@ -11,4 +11,6 @@ public class Constants {
 
     public static final String ADD = "add";
     public static final String CUSTOM = "custom";
+    public static final String BACK = "back";
+    public static final String FORWARD = "forward";
 }

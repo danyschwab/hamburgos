@@ -42,7 +42,7 @@ public class RequestAdapter extends RecyclerView.Adapter<SnackViewHolder> {
             holder.snackName.setText(request.getName());
             holder.price.setText(context.getString(R.string.price, request.getPrice()));
             holder.ingredients.setText(request.getIngredientListString());
-            Picasso.with(context)
+            Picasso.get()
                     .load(request.getImage())
                     .resize(50, 50)
                     .centerCrop()

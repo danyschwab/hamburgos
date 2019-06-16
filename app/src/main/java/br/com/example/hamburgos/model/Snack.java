@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Snack implements Parcelable {
+public class Snack implements Serializable {
 
     private int id;
     private String image;
@@ -40,8 +40,21 @@ public class Snack implements Parcelable {
                 result += ingredient.getPrice();
             }
         }
+
+
         return result;
     }
+
+//    private boolean isLight(){
+//        boolean result = false;
+//        if ( ingredientList != null ) {
+//                    }
+//        if ( extras != null) {
+//            for (Ingredient ingredient : extras) {
+//                result += ingredient.getPrice();
+//            }
+//        }
+//    }
 
     public List<Ingredient> getIngredientList() {
         return ingredientList;
@@ -78,24 +91,15 @@ public class Snack implements Parcelable {
     }
 
     public void addExtras(Ingredient ingredient){
+        if (extras == null ){
+            extras = new ArrayList<>();
+        }
         extras.add(ingredient);
     }
 
-    public static Snack getSnackExample(){
-        Snack snack = new Snack();
-        snack.id = 1;
-        snack.image = "https://goo.gl/W9WdaF";
-        snack.name =  "X-Bacon";
-        return snack;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
+    public void removeExtras(Ingredient ingredient) {
+        if ( extras != null ) {
+            extras.remove(ingredient);
+        }
     }
 }

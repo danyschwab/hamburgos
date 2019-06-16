@@ -45,7 +45,7 @@ public class SnacksAdapter extends RecyclerView.Adapter<SnackViewHolder> {
             holder.snackName.setText(snack.getName());
             holder.price.setText(context.getString(R.string.price, snack.getPrice()));
             holder.ingredients.setText(snack.getIngredientListString());
-            Picasso.with(context)
+            Picasso.get()
                     .load(snack.getImage())
                     .resize(50, 50)
                     .centerCrop()

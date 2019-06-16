@@ -17,6 +17,9 @@ interface Service {
     @GET("lanche")
     Call<List<Snack>> listSnacks();
 
+    @GET("lanche/{snackId}")
+    Call<Snack> getSnackById(@Path("snackId") int snackId);
+
     @GET("ingrediente")
     Call<List<Ingredient>> listIngredients();
 

@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity
                             presenter.addRequest(snack);
                         } else if ( Constants.CUSTOM.equals(type)) {
                             Intent intent = new Intent(MainActivity.this, SnackDetailActivity.class);
-                            intent.putExtra(Constants.SNACK, snack);
+                            intent.putExtra(Constants.SNACK, snack.getId());
                             startActivity(intent);
                         }
                     }

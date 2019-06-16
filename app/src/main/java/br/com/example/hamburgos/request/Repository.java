@@ -107,4 +107,10 @@ public class Repository {
         call.enqueue(callback);
     }
 
+    void getSnackById(int snackId, Callback<Snack> callback) {
+        Call<Snack> call = service.getSnackById(snackId);
+        call.enqueue(callback);
+    }
+
+
 }
