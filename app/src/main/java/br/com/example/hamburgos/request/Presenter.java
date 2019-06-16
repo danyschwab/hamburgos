@@ -29,12 +29,16 @@ public class Presenter {
             @Override
             public void onResponse(@NonNull Call<List<Snack>> call, @NonNull Response<List<Snack>> response) {
                 List<Snack> snacks = response.body();
-                getIngredientsBySnack(snacks);
+                if ( snacks != null ) {
+                    getIngredientsBySnack(snacks);
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Snack>> call, Throwable t) {
-                activity.setError(t.getMessage());
+                if (activity != null) {
+                    activity.setError(t.getMessage());
+                }
             }
         });
     }
@@ -63,13 +67,21 @@ public class Presenter {
             @Override
             public void onResponse(@NonNull Call<Request> call, @NonNull Response<Request> response) {
                 Request request = response.body();
-                if ( activity != null ){
-                    activity.setRequest(request);
+
+                if (activity != null) {
+                    if (request != null) {
+                        activity.requestConfirmation();
+                    } else {
+                        activity.setError("Pedido não efetuado!");
+                    }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Request> call, Throwable t) {
+                if (activity != null) {
+                    activity.setError(t.getMessage());
+                }
             }
         });
     }

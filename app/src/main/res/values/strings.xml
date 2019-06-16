@@ -24,4 +24,8 @@
     <string name="bacon">Bacon</string>
     <string name="dolar">$ 0.40</string>
     <string name="quantity">%d</string>
+    <string name="label_yes">Sim</string>
+    <string name="your_way">- do seu jeito</string>
+    <string name="label_no">Não</string>
+    <string name="confirmation">Confirmar pedido</string>
 </resources>

@@ -42,19 +42,43 @@ public class Snack implements Serializable {
         }
 
 
+        if ( isLight() ){
+            result = result * (float)0.90;
+        }
         return result;
     }
 
-//    private boolean isLight(){
-//        boolean result = false;
-//        if ( ingredientList != null ) {
-//                    }
-//        if ( extras != null) {
-//            for (Ingredient ingredient : extras) {
-//                result += ingredient.getPrice();
-//            }
-//        }
-//    }
+    private boolean isLight(){
+        boolean result = false;
+        boolean lettuceFlag = checkIfIngredientInList("Alface");
+        if ( lettuceFlag ){
+            result = !checkIfIngredientInList("Bacon");
+        }
+        return result;
+    }
+
+    private boolean checkIfIngredientInList(String ingredientName){
+        boolean result = false;
+        if ( ingredientName!= null ) {
+            if (ingredientList != null) {
+                for (Ingredient ingredient : ingredientList) {
+                    if (ingredientName.toLowerCase().equals(ingredient.getName().toLowerCase())) {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+            if (!result && extras != null) {
+                for (Ingredient ingredient : extras) {
+                    if (ingredientName.toLowerCase().equals(ingredient.getName().toLowerCase())) {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
 
     public List<Ingredient> getIngredientList() {
         return ingredientList;

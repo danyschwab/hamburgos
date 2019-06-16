@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-
         adapter.setClickListener(new SnackItemClickListener() {
             @Override
             public View.OnClickListener onClick(final String type, final Snack snack) {
@@ -74,7 +73,22 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(View view) {
                         if ( Constants.ADD.equals(type)){
-                            presenter.addRequest(snack);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle(getString(R.string.confirmation) + " - " + snack.getName());
+                            builder.setMessage(snack.getIngredientListString());
+                            builder.setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    presenter.addRequest(snack);
+                                }
+                            });
+                            builder.setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            builder.show();
                         } else if ( Constants.CUSTOM.equals(type)) {
                             Intent intent = new Intent(MainActivity.this, SnackDetailActivity.class);
                             intent.putExtra(Constants.SNACK, snack.getId());
@@ -171,8 +185,9 @@ public class MainActivity extends AppCompatActivity
         builder.show();
     }
 
-    public void setRequest(Request request) {
+    public void requestConfirmation() {
         Intent intent = new Intent(MainActivity.this, RequestActivity.class);
         startActivity(intent);
     }
+
 }

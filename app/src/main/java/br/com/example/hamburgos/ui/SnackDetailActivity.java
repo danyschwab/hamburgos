@@ -1,6 +1,7 @@
 package br.com.example.hamburgos.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -40,7 +41,7 @@ public class SnackDetailActivity extends AppCompatActivity {
     @BindView(R.id.text_ingredients)
     TextView ingredients;
     @BindView(R.id.button_done)
-    Button custom;
+    Button done;
 
     private Unbinder unbinder;
     private CustomPresenter presenter;
@@ -98,12 +99,14 @@ public class SnackDetailActivity extends AppCompatActivity {
 
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttp3Downloader(this));
-        builder.build().load(snack.getImage()).error(R.drawable.ic_menu_manage).into(imageThumbnail);
+        builder.build().load(snack.getImage()).error(R.drawable.hamburguer).into(imageThumbnail);
 
         LinearLayoutManager layoutParams = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutParams);
 
         recyclerView.setAdapter(adapter);
+
+        done.setOnClickListener(confirmationClickListner);
 
         presenter.getIngredients();
     }
@@ -123,4 +126,32 @@ public class SnackDetailActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
+    public void requestConfirmation(){
+        Intent intent = new Intent(SnackDetailActivity.this, RequestActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private View.OnClickListener confirmationClickListner = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(SnackDetailActivity.this);
+            builder.setTitle(getString(R.string.confirmation) + " - " + snack.getName());
+            builder.setMessage(snack.getIngredientListString() + getString(R.string.your_way));
+            builder.setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    presenter.addRequest(snack);
+                }
+            });
+            builder.setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.show();
+        }
+    };
 }
