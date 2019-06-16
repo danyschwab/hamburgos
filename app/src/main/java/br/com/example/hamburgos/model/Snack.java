@@ -38,6 +38,17 @@ public class Snack implements Serializable {
             }
         }
 
+        int meat = howManyIngredientOnList("Hamburguer de carne");
+        if ( meat > 2 &&  meat %3 == 0 ){
+            result -= (meat *3);
+            result += (((meat/3) *2) * 3);
+        }
+
+        int cheese = howManyIngredientOnList("Queijo");
+        if ( cheese > 2 &&  cheese %3 == 0 ){
+            result -= (cheese *1.5);
+            result += (((cheese/3) *2) * 1.5);
+        }
 
         if ( isLight() ){
             result = result * (float)0.90;
@@ -77,6 +88,27 @@ public class Snack implements Serializable {
         return result;
     }
 
+    private int howManyIngredientOnList(String ingredientName){
+        int  result = 0;
+        if ( ingredientName!= null ) {
+            if (ingredientList != null) {
+                for (Ingredient ingredient : ingredientList) {
+                    if (ingredientName.toLowerCase().equals(ingredient.getName().toLowerCase())) {
+                        ++result;
+                    }
+                }
+            }
+            if (extras != null) {
+                for (Ingredient ingredient : extras) {
+                    if (ingredientName.toLowerCase().equals(ingredient.getName().toLowerCase())) {
+                        ++result;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
     public List<Ingredient> getIngredientList() {
         return ingredientList;
     }
@@ -85,12 +117,14 @@ public class Snack implements Serializable {
         String result = "";
         if ( ingredientList != null ) {
             for (Ingredient ingredient : ingredientList) {
-                result += ingredient.getName() + ", ";
+                result = result.concat(ingredient.getName());
+                result = result.concat(", ");
             }
         }
         if ( extras != null) {
             for (Ingredient ingredient : extras) {
-                result += ingredient.getName() + ", ";
+                result = result.concat(ingredient.getName());
+                result = result.concat(", ");
             }
         }
         if ( result.length() > 2) {
