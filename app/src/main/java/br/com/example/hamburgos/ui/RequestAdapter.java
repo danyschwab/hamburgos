@@ -8,30 +8,33 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.example.hamburgos.R;
 import br.com.example.hamburgos.model.Request;
 
-public class RequestAdapter extends RecyclerView.Adapter<SnackViewHolder> {
+public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
 
     private List<Request> data;
     private Context context;
-//    private PromotionItemClickListener clickListener;
 
     RequestAdapter(Context context) {
         this.context = context;
     }
 
     @Override
-    public SnackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.snack_view, parent, false);
-        return new SnackViewHolder(view);
+    public RequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.request_view, parent, false);
+        return new RequestViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SnackViewHolder holder, int position) {
+    public void onBindViewHolder(RequestViewHolder holder, int position) {
 
         if (data.isEmpty())
             return;
@@ -39,11 +42,15 @@ public class RequestAdapter extends RecyclerView.Adapter<SnackViewHolder> {
         final Request request = data.get(position);
 
         if (request != null) {
-            holder.snackName.setText(request.getName());
-            holder.price.setText(context.getString(R.string.price, request.getPrice()));
-            holder.ingredients.setText(request.getIngredientListString());
+            holder.snackName.setText(request.getSnack().getName());
+            holder.price.setText(context.getString(R.string.price, request.getSnack().getPrice()));
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyy", Locale.getDefault());
+            Date date = new Date();
+            date.setTime(request.getDate());
+            holder.date.setText(String.format(context.getString(R.string.request_date), formatter.format(date)));
+            holder.ingredients.setText(request.getSnack().getIngredientListString());
             Picasso.get()
-                    .load(request.getImage())
+                    .load(request.getSnack().getImage())
                     .resize(50, 50)
                     .centerCrop()
                     .placeholder(R.drawable.hamburguer)
@@ -73,4 +80,12 @@ public class RequestAdapter extends RecyclerView.Adapter<SnackViewHolder> {
         data.clear();
     }
 
+    void addContent(Request request) {
+        if (this.data == null) {
+            this.data = new ArrayList<>();
+        }
+        this.data.add(request);
+        notifyDataSetChanged();
+
+    }
 }

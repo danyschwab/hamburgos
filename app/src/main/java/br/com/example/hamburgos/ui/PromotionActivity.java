@@ -76,5 +76,6 @@ public class PromotionActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
+        builder.show();
     }
 }

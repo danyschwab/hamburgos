@@ -1,8 +1,5 @@
 package br.com.example.hamburgos.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +104,9 @@ public class Snack implements Serializable {
     }
 
     public List<Ingredient> getExtras() {
+        if ( extras == null ){
+            extras = new ArrayList<>();
+        }
         return extras;
     }
 
@@ -125,5 +125,13 @@ public class Snack implements Serializable {
         if ( extras != null ) {
             extras.remove(ingredient);
         }
+    }
+
+    public List<Integer> getJsonExtras() {
+        List<Integer> idList = new ArrayList<>();
+        for (Ingredient extra: extras){
+            idList.add(extra.getId());
+        }
+        return idList;
     }
 }

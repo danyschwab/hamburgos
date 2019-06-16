@@ -69,6 +69,12 @@ public class RequestActivity extends AppCompatActivity {
         }
     }
 
+    public void setContent(Request request) {
+        emptyList.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        adapter.addContent(request);
+    }
+
     public void setError(String errorMessage) {
         AlertDialog.Builder builder = new AlertDialog.Builder(RequestActivity.this);
         builder.setMessage(errorMessage);
@@ -78,5 +84,6 @@ public class RequestActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
+        builder.show();
     }
 }

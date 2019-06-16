@@ -6,56 +6,34 @@ import java.util.List;
 public class Request implements Serializable {
 
     private int id;
-    private String image;
-    private String name;
+    private int id_sandwich;
+    private Snack snack;
+    private long date;
+    private List<Integer> extras;
+    private List<Ingredient> extrasIngredients;
 
-    private List<Ingredient> ingredientList;
-    private List<Ingredient> extras;
 
     public int getId() {
         return id;
     }
 
-    public String getImage() {
-        return image;
+    public Snack getSnack() {
+        return snack;
     }
 
-    public String getName() {
-        return name;
+    public long getDate() {
+        return date;
     }
 
-    public float getPrice(){
-        float result = 0;
-        for (Ingredient ingredient : ingredientList){
-            result += ingredient.getPrice();
-        }
-        for (Ingredient ingredient : extras){
-            result += ingredient.getPrice();
-        }
-        return result;
+    public int getId_sandwich() {
+        return id_sandwich;
     }
 
-    public List<Ingredient> getIngredientList() {
-        return ingredientList;
+    public void setSnack(Snack snack) {
+        this.snack = snack;
     }
 
-    public String getIngredientListString(){
-        String result = "";
-        for(Ingredient ingredient: ingredientList){
-            result += ingredient.getName() + ", ";
-        }
-        for(Ingredient ingredient: extras){
-            result += ingredient.getName() + ", ";
-        }
-        result = result.substring(0, result.length()-2);
-        return result;
-    }
-
-    public void setIngredientList(List<Ingredient> ingredientList) {
-        this.ingredientList = ingredientList;
-    }
-
-    public List<Ingredient> getExtras() {
+    public List<Integer> getExtras() {
         return extras;
     }
 

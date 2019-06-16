@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="8dp"
+    card_view:cardUseCompatPadding="true">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:id="@+id/image_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="@string/snack_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/hamburguer"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_snack_name"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="X-Bacon"
+            card_view:layout_constraintStart_toStartOf="@+id/image_thumbnail"
+            card_view:layout_constraintTop_toBottomOf="@id/image_thumbnail" />
+
+        <TextView
+            android:id="@+id/text_price"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="$ 14.00"
+            card_view:layout_constraintBottom_toBottomOf="@+id/text_snack_name"
+            card_view:layout_constraintEnd_toEndOf="@+id/image_thumbnail"
+            card_view:layout_constraintTop_toTopOf="@+id/text_snack_name" />
+
+        <TextView
+            android:id="@+id/text_date"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/request_date"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            card_view:layout_constraintStart_toStartOf="@+id/image_thumbnail"
+            card_view:layout_constraintTop_toBottomOf="@+id/text_snack_name" />
+
+        <TextView
+            android:id="@+id/text_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="Pão com gergelim, bacon, hambúrguer de carne e queijo"
+            card_view:layout_constraintStart_toStartOf="@+id/image_thumbnail"
+            card_view:layout_constraintTop_toBottomOf="@+id/text_date" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

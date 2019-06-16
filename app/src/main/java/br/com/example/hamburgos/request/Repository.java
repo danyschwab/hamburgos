@@ -2,6 +2,9 @@ package br.com.example.hamburgos.request;
 
 import android.content.Context;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -70,13 +73,6 @@ public class Repository {
         service = retrofit.create(Service.class);
     }
 
-    private Map<String, String> createParans() {
-        Map<String, String> map = new HashMap<>();
-//        map.put(Constants.QUERY, query);
-
-        return map;
-    }
-
     void listSnacks(Callback<List<Snack>> callback) {
         Call<List<Snack>> call = service.listSnacks();
         call.enqueue(callback);
@@ -87,7 +83,7 @@ public class Repository {
         call.enqueue(callback);
     }
 
-    public void listIngridients(Callback<List<Ingredient>> callback) {
+    void listIngredients(Callback<List<Ingredient>> callback) {
         Call<List<Ingredient>> call = service.listIngredients();
         call.enqueue(callback);
     }
@@ -103,7 +99,7 @@ public class Repository {
     }
 
     void addRequest(Snack snack, Callback<Request> callback) {
-        Call<Request> call = service.addRequest(snack.getId(), snack.getExtras());
+        Call<Request> call = service.addRequest(snack.getId(), snack.getJsonExtras());
         call.enqueue(callback);
     }
 
@@ -111,6 +107,5 @@ public class Repository {
         Call<Snack> call = service.getSnackById(snackId);
         call.enqueue(callback);
     }
-
 
 }

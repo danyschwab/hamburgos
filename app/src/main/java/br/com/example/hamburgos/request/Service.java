@@ -1,6 +1,10 @@
 package br.com.example.hamburgos.request;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.List;
+import java.util.Map;
 
 import br.com.example.hamburgos.model.Ingredient;
 import br.com.example.hamburgos.model.Promotion;
@@ -33,5 +37,7 @@ interface Service {
     Call<List<Request>> listRequest();
 
     @PUT("pedido/{snackId}")
-    Call<Request> addRequest(@Path("snackId") int snackId, @Body List<Ingredient> extras);
+    Call<Request> addRequest(@Path("snackId") int snackId, @Body List<Integer> extras);
+
+    Call<Ingredient> getIngredientsById(@Path("snackId") Integer idExtra);
 }

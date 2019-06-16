@@ -60,7 +60,7 @@ public class CustomPresenter {
     }
 
     public void getIngredients() {
-        repository.listIngridients(new Callback<List<Ingredient>>() {
+        repository.listIngredients(new Callback<List<Ingredient>>() {
             @Override
             public void onResponse(@NonNull Call<List<Ingredient>> call, @NonNull Response<List<Ingredient>> response) {
                 List<Ingredient> ingredients = response.body();
