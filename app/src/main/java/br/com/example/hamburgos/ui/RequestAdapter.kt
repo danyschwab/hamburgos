@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import br.com.example.hamburgos.R
-import br.com.example.hamburgos.model.Request
+import br.com.example.hamburgos.model.Order
 import br.com.example.hamburgos.util.layoutInflater
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.request_view.view.*
@@ -16,7 +16,7 @@ import java.util.*
 
 class RequestAdapter internal constructor(private val context: Context) : RecyclerView.Adapter<RequestAdapter.RequestViewHolder>() {
 
-    private var data: MutableList<Request>? = null
+    private var data: MutableList<Order>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
         val view = context.layoutInflater.inflate(R.layout.request_view, parent, false)
@@ -51,14 +51,14 @@ class RequestAdapter internal constructor(private val context: Context) : Recycl
         return if (data != null) data!!.size else 0
     }
 
-    internal fun setContent(requests: List<Request>?) {
+    internal fun setContent(orders: List<Order>?) {
         if (this.data == null) {
             this.data = ArrayList()
         } else {
             this.data!!.clear()
         }
-        if (requests != null) {
-            this.data!!.addAll(requests)
+        if (orders != null) {
+            this.data!!.addAll(orders)
         }
         notifyDataSetChanged()
     }
@@ -67,11 +67,11 @@ class RequestAdapter internal constructor(private val context: Context) : Recycl
         data!!.clear()
     }
 
-    internal fun addContent(request: Request) {
+    internal fun addContent(order: Order) {
         if (this.data == null) {
             this.data = ArrayList()
         }
-        this.data!!.add(request)
+        this.data!!.add(order)
         notifyDataSetChanged()
 
     }

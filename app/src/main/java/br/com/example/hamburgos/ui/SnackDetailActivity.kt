@@ -23,7 +23,7 @@ class SnackDetailActivity : AppCompatActivity() {
 
     private var snack: Snack? = null
 
-    private val confirmationClickListner = View.OnClickListener {
+    private val confirmationClickListener = View.OnClickListener {
         val builder = AlertDialog.Builder(this@SnackDetailActivity)
         builder.setTitle(getString(R.string.confirmation) + " - " + snack!!.name)
         builder.setMessage(snack!!.ingredientListString + getString(R.string.your_way))
@@ -72,7 +72,7 @@ class SnackDetailActivity : AppCompatActivity() {
         list_extras.layoutManager = layoutParams
         list_extras.adapter = adapter
 
-        button_done.setOnClickListener(confirmationClickListner)
+        button_done.setOnClickListener(confirmationClickListener)
 
         presenter!!.getIngredients()
     }
@@ -81,7 +81,7 @@ class SnackDetailActivity : AppCompatActivity() {
         adapter!!.setContent(ingredientList, snack!!)
     }
 
-    fun setError(errorMessage: String) {
+    fun setError(errorMessage: String?) {
         val builder = AlertDialog.Builder(this@SnackDetailActivity)
         builder.setMessage(errorMessage)
         builder.setPositiveButton("OK") { dialogInterface, _ -> dialogInterface.dismiss() }

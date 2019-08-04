@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import br.com.example.hamburgos.R
-import br.com.example.hamburgos.model.Request
+import br.com.example.hamburgos.model.Order
 import br.com.example.hamburgos.request.RequestPresenter
 import kotlinx.android.synthetic.main.activity_request.*
 
@@ -29,24 +29,24 @@ class RequestActivity : AppCompatActivity() {
         presenter!!.getRequests()
     }
 
-    fun setContent(requests: List<Request>?) {
-        if (requests == null || requests.isEmpty()) {
+    fun setContent(orders: List<Order>?) {
+        if (orders == null || orders.isEmpty()) {
             text_empty_list.visibility = View.VISIBLE
             list_request.visibility = View.GONE
         } else {
             text_empty_list.visibility = View.GONE
             list_request.visibility = View.VISIBLE
-            adapter!!.setContent(requests)
+            adapter!!.setContent(orders)
         }
     }
 
-    fun setContent(request: Request) {
+    fun setContent(order: Order) {
         text_empty_list.visibility = View.GONE
         list_request.visibility = View.VISIBLE
-        adapter!!.addContent(request)
+        adapter!!.addContent(order)
     }
 
-    fun setError(errorMessage: String) {
+    fun setError(errorMessage: String?) {
         val builder = AlertDialog.Builder(this@RequestActivity)
         builder.setMessage(errorMessage)
         builder.setPositiveButton("OK") { dialogInterface, _ -> dialogInterface.dismiss() }

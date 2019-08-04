@@ -17,7 +17,6 @@
     <string name="price">$ %.2f</string>
     <string name="custom">Custom</string>
     <string name="done">Concluir</string>
-    <string name="foward"><![CDATA[>]]></string>
     <string name="back"><![CDATA[<]]></string>
     <string name="forward"><![CDATA[>]]></string>
     <string name="one">1</string>
@@ -31,4 +30,6 @@
     <string name="empty_requests">Nenhum pedido ainda!</string>
     <string name="empty_promotions">Sem Promoções no momento</string>
     <string name="request_date">Data do Pedido: %s</string>
+    <string name="snack_ingredients">Pão com gergelim, bacon, hambúrguer de carne e queijo</string>
+    <string name="x_bacon">X-Bacon</string>
 </resources>

@@ -1,5 +1,6 @@
 package br.com.example.hamburgos.model
 
+import br.com.example.hamburgos.util.Constants
 import java.io.Serializable
 import java.util.ArrayList
 
@@ -26,13 +27,13 @@ class Snack : Serializable {
                 }
             }
 
-            val meat = howManyIngredientOnList("Hamburguer de carne")
+            val meat = howManyIngredientOnList(Constants.HAMBURGER)
             if (meat > 2 && meat % 3 == 0) {
                 result -= (meat * 3).toFloat()
                 result += (meat / 3 * 2 * 3).toFloat()
             }
 
-            val cheese = howManyIngredientOnList("Queijo")
+            val cheese = howManyIngredientOnList(Constants.CHEESE)
             if (cheese > 2 && cheese % 3 == 0) {
                 result -= (cheese * 1.5).toFloat()
                 result += (cheese / 3 * 2 * 1.5).toFloat()
@@ -47,7 +48,7 @@ class Snack : Serializable {
     private val isLight: Boolean
         get() {
             var result = false
-            val lettuceFlag = checkIfIngredientInList("Alface")
+            val lettuceFlag = checkIfIngredientInList(Constants.LETTUCE)
             if (lettuceFlag) {
                 result = !checkIfIngredientInList("Bacon")
             }

@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         adapter!!.setContent(snacks)
     }
 
-    fun setError(errorMessage: String) {
+    fun setError(errorMessage: String?) {
         val builder = AlertDialog.Builder(this@MainActivity)
         builder.setMessage(errorMessage)
         builder.setPositiveButton("OK") { dialogInterface, i -> dialogInterface.dismiss() }
