@@ -1,14 +1,16 @@
 package br.com.example.hamburgos.ui
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.example.hamburgos.R
 import br.com.example.hamburgos.model.Order
 import br.com.example.hamburgos.request.RequestPresenter
+import kotlinx.android.synthetic.main.activity_promotion.*
 import kotlinx.android.synthetic.main.activity_request.*
+import kotlinx.android.synthetic.main.activity_request.textEmptyList
 
 class RequestActivity : AppCompatActivity() {
 
@@ -23,27 +25,27 @@ class RequestActivity : AppCompatActivity() {
         adapter = RequestAdapter(this)
 
         val layoutParams = LinearLayoutManager(this)
-        list_request.layoutManager = layoutParams
-        list_request.adapter = adapter
+        listRequest.layoutManager = layoutParams
+        listRequest.adapter = adapter
 
         presenter!!.getRequests()
     }
 
     fun setContent(orders: List<Order>?) {
         if (orders == null || orders.isEmpty()) {
-            text_empty_list.visibility = View.VISIBLE
-            list_request.visibility = View.GONE
+            textEmptyList.visibility = View.VISIBLE
+            listRequest.visibility = View.GONE
         } else {
-            text_empty_list.visibility = View.GONE
-            list_request.visibility = View.VISIBLE
-            adapter!!.setContent(orders)
+            textEmptyList.visibility = View.GONE
+            listRequest.visibility = View.VISIBLE
+            adapter?.setContent(orders)
         }
     }
 
     fun setContent(order: Order) {
-        text_empty_list.visibility = View.GONE
-        list_request.visibility = View.VISIBLE
-        adapter!!.addContent(order)
+        textEmptyList.visibility = View.GONE
+        listRequest.visibility = View.VISIBLE
+        adapter?.addContent(order)
     }
 
     fun setError(errorMessage: String?) {

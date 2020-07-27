@@ -1,4 +1,4 @@
-package br.com.example.hamburgos.listener
+package br.com.example.hamburgos.snacklist
 
 import android.view.View
 

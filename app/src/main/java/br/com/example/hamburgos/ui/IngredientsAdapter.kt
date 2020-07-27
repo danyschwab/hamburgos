@@ -1,13 +1,14 @@
 package br.com.example.hamburgos.ui
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
+
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import br.com.example.hamburgos.R
-import br.com.example.hamburgos.listener.IngredientItemClickListener
+import br.com.example.hamburgos.ui.listener.IngredientItemClickListener
 import br.com.example.hamburgos.model.Ingredient
 import br.com.example.hamburgos.model.Snack
 import br.com.example.hamburgos.util.Constants
@@ -72,10 +73,10 @@ class IngredientsAdapter internal constructor(private val context: Context) : Re
         if (this.data == null) {
             this.data = ArrayList()
         } else {
-            this.data!!.clear()
+            this.data?.clear()
         }
         if (ingredientList != null) {
-            this.data!!.addAll(ingredientList)
+            this.data?.addAll(ingredientList)
         }
         this.snack = snack
         notifyDataSetChanged()
@@ -86,10 +87,10 @@ class IngredientsAdapter internal constructor(private val context: Context) : Re
     }
 
     class IngredientViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.text_ingredient
-        val quantity: TextView = view.text_quantity
-        val back: Button = view.button_back
-        val forward: Button = view.button_forward
-        val price: TextView = view.text_price
+        val name: TextView = view.textIngredient
+        val quantity: TextView = view.textQuantity
+        val back: Button = view.buttonBack
+        val forward: Button = view.buttonForward
+        val price: TextView = view.textPrice
     }
 }

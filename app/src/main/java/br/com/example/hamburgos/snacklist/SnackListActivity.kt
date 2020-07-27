@@ -1,57 +1,58 @@
-package br.com.example.hamburgos.ui
+package br.com.example.hamburgos.snacklist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.example.hamburgos.R
-import br.com.example.hamburgos.listener.SnackItemClickListener
 import br.com.example.hamburgos.model.Snack
-import br.com.example.hamburgos.request.Presenter
+import br.com.example.hamburgos.ui.PromotionActivity
+import br.com.example.hamburgos.ui.RequestActivity
+import br.com.example.hamburgos.ui.SnackDetailActivity
 import br.com.example.hamburgos.util.Constants
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class SnackListActivity : AppCompatActivity(), SnackListContract.View, NavigationView.OnNavigationItemSelectedListener {
 
-    private var adapter: SnacksAdapter? = null
-    private var presenter: Presenter? = null
+    private var adapter: SnackListAdapter? = null
+    private var presenter: SnackListPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter = Presenter(this)
-        adapter = SnacksAdapter(this)
+        presenter = SnackListPresenter(this)
+        adapter = SnackListAdapter(this)
         setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-        nav_view.setNavigationItemSelectedListener(this)
+        navView.setNavigationItemSelectedListener(this)
 
-        adapter!!.setClickListener(object : SnackItemClickListener() {
+        adapter?.setClickListener(object : SnackItemClickListener() {
             override fun onClick(type: String, snack: Snack): View.OnClickListener {
                 return View.OnClickListener {
                     if (Constants.ADD == type) {
-                        val builder = AlertDialog.Builder(this@MainActivity)
+                        val builder = AlertDialog.Builder(this@SnackListActivity)
                         builder.setTitle(getString(R.string.confirmation) + " - " + snack.name)
                         builder.setMessage(snack.ingredientListString)
-                        builder.setPositiveButton(R.string.label_yes) { dialogInterface, i -> presenter!!.addRequest(snack) }
-                        builder.setNegativeButton(R.string.label_no) { dialogInterface, i -> dialogInterface.dismiss() }
+                        builder.setPositiveButton(R.string.label_yes) { _, _ -> presenter?.addRequest(snack) }
+                        builder.setNegativeButton(R.string.label_no) { dialogInterface, _ -> dialogInterface.dismiss() }
                         builder.show()
                     } else if (Constants.CUSTOM == type) {
-                        val intent = Intent(this@MainActivity, SnackDetailActivity::class.java)
+                        val intent = Intent(this@SnackListActivity, SnackDetailActivity::class.java)
                         intent.putExtra(Constants.SNACK, snack.id)
                         startActivity(intent)
                     }
@@ -60,8 +61,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
 
         val layoutParams = LinearLayoutManager(this)
-        list_snacks.layoutManager = layoutParams
-        list_snacks.adapter = adapter
+        listSnacks.layoutManager = layoutParams
+        listSnacks.adapter = adapter
 
         presenter!!.getSnacks()
     }
@@ -76,15 +77,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
 
 
@@ -95,16 +92,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         val id = item.itemId
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_promotions) {
-            val intent = Intent(this@MainActivity, PromotionActivity::class.java)
+        if (id == R.id.nav_promotions) {
+            val intent = Intent(this@SnackListActivity, PromotionActivity::class.java)
             startActivity(intent)
         } else if (id == R.id.nav_shopper) {
-            val intent = Intent(this@MainActivity, RequestActivity::class.java)
+            val intent = Intent(this@SnackListActivity, RequestActivity::class.java)
             startActivity(intent)
         }
 
@@ -113,19 +107,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    fun setContent(snacks: List<Snack>) {
-        adapter!!.setContent(snacks)
+    override fun setContent(snacks: List<Snack>) {
+        adapter?.setContent(snacks)
     }
 
-    fun setError(errorMessage: String?) {
-        val builder = AlertDialog.Builder(this@MainActivity)
+    override fun setError(errorMessage: String?) {
+        val builder = AlertDialog.Builder(this@SnackListActivity)
         builder.setMessage(errorMessage)
         builder.setPositiveButton("OK") { dialogInterface, i -> dialogInterface.dismiss() }
         builder.show()
     }
 
-    fun requestConfirmation() {
-        val intent = Intent(this@MainActivity, RequestActivity::class.java)
+    override fun requestConfirmation() {
+        val intent = Intent(this@SnackListActivity, RequestActivity::class.java)
         startActivity(intent)
     }
 

@@ -2,12 +2,12 @@ package br.com.example.hamburgos.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.example.hamburgos.R
-import br.com.example.hamburgos.listener.IngredientItemClickListener
+import br.com.example.hamburgos.ui.listener.IngredientItemClickListener
 import br.com.example.hamburgos.model.Ingredient
 import br.com.example.hamburgos.model.Snack
 import br.com.example.hamburgos.request.CustomPresenter
@@ -27,7 +27,7 @@ class SnackDetailActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this@SnackDetailActivity)
         builder.setTitle(getString(R.string.confirmation) + " - " + snack!!.name)
         builder.setMessage(snack!!.ingredientListString + getString(R.string.your_way))
-        builder.setPositiveButton(R.string.label_yes) { _, _ -> presenter!!.addRequest(snack) }
+//        builder.setPositiveButton(R.string.label_yes) { _, _ -> presenter!!.addRequest(snack) }
         builder.setNegativeButton(R.string.label_no) { dialogInterface, _ -> dialogInterface.dismiss() }
         builder.show()
     }
@@ -45,11 +45,11 @@ class SnackDetailActivity : AppCompatActivity() {
             override fun onClick(type: String, ingredient: Ingredient): View.OnClickListener {
                 return View.OnClickListener {
                     if (Constants.BACK == type) {
-                        snack!!.removeExtras(ingredient)
+                        snack?.removeExtras(ingredient)
                     } else if (Constants.FORWARD == type) {
-                        snack!!.addExtras(ingredient)
+                        snack?.addExtras(ingredient)
                     }
-                    text_price.text = getString(R.string.price, snack!!.price)
+                    textPrice.text = getString(R.string.price, snack?.price)
                     adapter!!.notifyDataSetChanged()
                 }
             }
@@ -60,25 +60,25 @@ class SnackDetailActivity : AppCompatActivity() {
 
     fun setContent(snack: Snack) {
         this.snack = snack
-        text_snack_name.text = snack.name
-        text_price.text = getString(R.string.price, snack.price)
-        text_ingredients.text = snack.ingredientListString
+        textSnackName.text = snack.name
+        textPrice.text = getString(R.string.price, snack.price)
+        textIngredients.text = snack.ingredientListString
 
         val builder = Picasso.Builder(this)
         builder.downloader(OkHttp3Downloader(this))
-        builder.build().load(snack.image).error(R.drawable.hamburguer).into(image_thumbnail)
+        builder.build().load(snack.image).error(R.drawable.hamburguer).into(imageThumbnail)
 
         val layoutParams = LinearLayoutManager(this)
-        list_extras.layoutManager = layoutParams
-        list_extras.adapter = adapter
+        listExtras.layoutManager = layoutParams
+        listExtras.adapter = adapter
 
-        button_done.setOnClickListener(confirmationClickListener)
+        buttonDone.setOnClickListener(confirmationClickListener)
 
-        presenter!!.getIngredients()
+        presenter?.getIngredients()
     }
 
     fun setContent(ingredientList: List<Ingredient>) {
-        adapter!!.setContent(ingredientList, snack!!)
+        adapter?.setContent(ingredientList, snack!!)
     }
 
     fun setError(errorMessage: String?) {

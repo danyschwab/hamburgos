@@ -1,9 +1,9 @@
 package br.com.example.hamburgos.ui
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import br.com.example.hamburgos.R
 import br.com.example.hamburgos.model.Promotion
 import br.com.example.hamburgos.util.layoutInflater
@@ -63,8 +63,8 @@ class PromotionAdapter(private val context: Context) : RecyclerView.Adapter<Prom
     //    }
 
     class PromotionViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
-        val image = view.image_thumbnail
-        val promotionName = view.text_promotion_name
-        val description =  view.text_description
+        val image = view.imageThumbnail
+        val promotionName = view.textPromotionName
+        val description =  view.textDescription
     }
 }

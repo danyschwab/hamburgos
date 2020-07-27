@@ -3,7 +3,7 @@ package br.com.example.hamburgos.util
 object Constants {
 
 
-    const val BASE_URL = "http://127.0.0.1:8081/api/"
+    const val BASE_URL = "https://hamburgos-server.herokuapp.com/api/V1/"
 
     const val SNACK = "snack"
     const val ADD = "add"

@@ -1,10 +1,10 @@
 package br.com.example.hamburgos.ui
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.example.hamburgos.R
 import br.com.example.hamburgos.model.Promotion
 import br.com.example.hamburgos.request.PromotionPresenter
@@ -23,19 +23,19 @@ class PromotionActivity : AppCompatActivity() {
         adapter = PromotionAdapter(this)
 
         val layoutParams = LinearLayoutManager(this)
-        list_promotion!!.layoutManager = layoutParams
-        list_promotion!!.adapter = adapter
+        listPromotion.layoutManager = layoutParams
+        listPromotion.adapter = adapter
 
         presenter!!.getPromotions()
     }
 
     fun setContent(promotions: List<Promotion>?) {
         if (promotions == null || promotions.isEmpty()) {
-            text_empty_list.visibility = View.VISIBLE
-            list_promotion!!.visibility = View.GONE
+            textEmptyList.visibility = View.VISIBLE
+            listPromotion.visibility = View.GONE
         } else {
-            text_empty_list.visibility = View.GONE
-            list_promotion!!.visibility = View.VISIBLE
+            textEmptyList.visibility = View.GONE
+            listPromotion.visibility = View.VISIBLE
             adapter!!.setContent(promotions)
         }
     }

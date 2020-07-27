@@ -14,7 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.com.example.hamburgos.ui.MainActivity;
+import br.com.example.hamburgos.snacklist.SnackListActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -29,8 +29,8 @@ public class SnackValueTest {
      * Use {@link ActivityScenarioRule} to create and launch the activity under test, and close it
      * after test completes. This is a replacement for {@link androidx.test.rule.ActivityTestRule}.
      */
-    @Rule public ActivityScenarioRule<MainActivity> activityScenarioRule
-            = new ActivityScenarioRule<>(MainActivity.class);
+    @Rule public ActivityScenarioRule<SnackListActivity> activityScenarioRule
+            = new ActivityScenarioRule<>(SnackListActivity.class);
 
 
     public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {

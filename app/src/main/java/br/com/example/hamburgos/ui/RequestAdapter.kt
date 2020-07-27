@@ -1,11 +1,11 @@
 package br.com.example.hamburgos.ui
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import br.com.example.hamburgos.R
 import br.com.example.hamburgos.model.Order
 import br.com.example.hamburgos.util.layoutInflater
@@ -31,7 +31,7 @@ class RequestAdapter internal constructor(private val context: Context) : Recycl
         val request = data!![position]
 
         holder.snackName.text = request.snack!!.name
-        holder.price.text =context.getString(R.string.price, request.snack!!.price)
+        holder.price.text = context.getString(R.string.price, request.snack!!.price)
         val formatter = SimpleDateFormat("dd/MM/yyy", Locale.getDefault())
         val date = Date()
         date.time = request.date
@@ -77,11 +77,11 @@ class RequestAdapter internal constructor(private val context: Context) : Recycl
     }
 
     class RequestViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
-        val imageThumbnail: ImageView? = view.image_thumbnail
-        val snackName: TextView = view.text_snack_name
-        val price: TextView = view.text_price
-        val date: TextView = view.text_date
-        val ingredients: TextView = view.text_ingredients
+        val imageThumbnail: ImageView? = view.imageThumbnail
+        val snackName: TextView = view.textSnackName
+        val price: TextView = view.textPrice
+        val date: TextView = view.textDate
+        val ingredients: TextView = view.textIngredients
     }
 
 }

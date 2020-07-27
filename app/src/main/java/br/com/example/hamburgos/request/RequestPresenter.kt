@@ -8,25 +8,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RequestPresenter(private val activity: RequestActivity?) {
+class RequestPresenter(private val activity: RequestActivity) {
 
-    private val repository: Repository = Repository(activity)
+    private val repository: Repository = Repository()
 
     fun getRequests() {
         repository.listOrders(object : Callback<List<Order>> {
             override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
-                if (activity != null) {
-                    val orders = response.body()
-                    if (orders != null) {
-                        getSnackById(orders)
-                    } else {
-                        activity.setContent(orders)
-                    }
+                response.body()?.let { orders ->
+                    getSnackById(orders)
+                    activity.setContent(orders)
                 }
+
             }
 
             override fun onFailure(call: Call<List<Order>>, t: Throwable) {
-                activity?.setError(t.message)
+                activity.setError(t.message)
             }
         })
     }
@@ -35,14 +32,13 @@ class RequestPresenter(private val activity: RequestActivity?) {
         for (order in orders) {
             repository.getSnackById(order.snackId, object : Callback<Snack> {
                 override fun onResponse(call: Call<Snack>, response: Response<Snack>) {
-                    val snack = response.body()
-                    if (snack != null) {
+                    response.body()?.let{ snack ->
                         getIngredientsBySnack(order, snack)
                     }
                 }
 
                 override fun onFailure(call: Call<Snack>, t: Throwable) {
-                    activity?.setError(t.message)
+                    activity.setError(t.message)
                 }
             })
         }
@@ -51,12 +47,11 @@ class RequestPresenter(private val activity: RequestActivity?) {
     private fun getIngredientsBySnack(order: Order, snack: Snack) {
         repository.getIngredientBySnack(snack.id, object : Callback<List<Ingredient>> {
             override fun onResponse(call: Call<List<Ingredient>>, response: Response<List<Ingredient>>) {
-                val ingredients = response.body()
-                snack.ingredientList = ingredients
-                if (activity != null) {
-                    order.snack = snack
-                    activity.setContent(order)
+                response.body()?.let {
+                    snack.ingredientList = it
                 }
+                order.snack = snack
+                activity.setContent(order)
             }
 
             override fun onFailure(call: Call<List<Ingredient>>, t: Throwable) {}
